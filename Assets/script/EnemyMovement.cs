@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyMovement : MonoBehaviour
+public class RabbitMoving : MonoBehaviour
 
 
 {
-    public NavMeshAgent BadGuy;
-    public float squareOfMovement = 20f;
+    public NavMeshAgent Rabbit;
+    //public float squareOfMovement = 20f;
     private float xMin;
     private float xMax;
 
@@ -20,14 +20,15 @@ public class EnemyMovement : MonoBehaviour
     private float yPosition;
 
     public float CloseEnough;
+    private Animation anim;
     
     // Start is called before the first frame update
     void Start()
     {
-        xMin = -squareOfMovement;
-        zMin = -squareOfMovement;
-        xMax = squareOfMovement;
-        zMax = squareOfMovement;
+        xMin = 46;
+        zMin = -16; 
+        xMax = 113;
+        zMax = -125;
 
         newLocation();
     }
@@ -48,7 +49,9 @@ public class EnemyMovement : MonoBehaviour
         xPosition = Random.Range(xMin, xMax);
         zPosition = Random.Range(zMin, zMax);
 
-        BadGuy.SetDestination(new Vector3(xPosition, yPosition, zPosition));
+        Rabbit.SetDestination(new Vector3(xPosition, yPosition, zPosition));
+        Animator anim = Rabbit.GetComponent<Animator>();
+        anim.SetTrigger("Run");
     }
 
 }

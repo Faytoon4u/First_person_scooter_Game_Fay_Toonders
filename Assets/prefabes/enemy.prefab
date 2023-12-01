@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 6964304452802142355}
   - component: {fileID: 1981797040670126785}
   - component: {fileID: 4834570964965645732}
-  - component: {fileID: 982842223973788804}
   - component: {fileID: 7140770980143247461}
+  - component: {fileID: -6505945731335619443}
   m_Layer: 0
   m_Name: enemy
   m_TagString: npc
@@ -132,21 +132,6 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &982842223973788804
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6590741987112568700}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ffd58153bad89d4f9ff18866f3236f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BadGuy: {fileID: 4834570964965645732}
-  squareOfMovement: 100
-  CloseEnough: 2
 --- !u!114 &7140770980143247461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,3 +148,17 @@ MonoBehaviour:
   defaultMaterial: {fileID: 2100000, guid: af1c813769bbddc4985aeb137b5f3dd9, type: 2}
   attackMaterial: {fileID: 2100000, guid: aad2e1386e9eadf4193f4f9c41422e94, type: 2}
   foundPlayer: 0
+--- !u!114 &-6505945731335619443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6590741987112568700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ffd58153bad89d4f9ff18866f3236f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Rabbit: {fileID: 0}
+  CloseEnough: 0

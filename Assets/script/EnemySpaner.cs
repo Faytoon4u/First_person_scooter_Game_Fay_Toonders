@@ -12,7 +12,7 @@ public class EnemySpaner : MonoBehaviour
     {
         for(int i = 0; i < enemeyMax; i++)
         {
-            GameObject enemy = Instantiate(OGEnemy);
+            GameObject enemy = Instantiate(OGEnemy, transform.position, Quaternion.identity);
 
         }
             
