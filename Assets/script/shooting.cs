@@ -22,14 +22,11 @@ public class shooting : MonoBehaviour
             {
                if (hit.collider.tag.Equals("npc"))
                {
-                    //Destroy(hit.collider.gameObject); // the GameObject gets destroyed here
-                    Debug.Log("hit");
-                    anim.Play("Dead");
-                    DontDestroyOnLoad("Dead");
-
+                    hit.collider.GetComponent<Enemyhealth>().Die();
                }
             }
             
         }
+
     }
 }
