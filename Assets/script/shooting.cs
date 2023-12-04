@@ -9,6 +9,7 @@ public class shooting : MonoBehaviour
 
     private Ray ray;
     private RaycastHit hit;
+    public Animator anim;
 
 
     // Update is called once per frame
@@ -21,8 +22,11 @@ public class shooting : MonoBehaviour
             {
                if (hit.collider.tag.Equals("npc"))
                {
-                    Destroy(hit.collider.gameObject); // the GameObject gets destroyed here
+                    //Destroy(hit.collider.gameObject); // the GameObject gets destroyed here
                     Debug.Log("hit");
+                    anim.Play("Dead");
+                    DontDestroyOnLoad("Dead");
+
                }
             }
             
