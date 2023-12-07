@@ -16,7 +16,7 @@ public class ArrowShooter : MonoBehaviour
             ShootArrow();
         }
     }
-
+    
     void ShootArrow()
     {
         // Instantiate a new arrow
