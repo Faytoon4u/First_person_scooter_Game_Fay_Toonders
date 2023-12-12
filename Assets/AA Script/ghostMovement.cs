@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyMovement : MonoBehaviour
-{
-    public NavMeshAgent BadGuy;
+public class ghostMovement : MonoBehaviour
 
+{
+    public float squareOfMovement = 20f;
     private float xMin;
-    private float zMin;
     private float xMax;
+
+    private float zMin;
     private float zMax;
 
     private float xPos;
@@ -19,15 +20,17 @@ public class EnemyMovement : MonoBehaviour
     public float closeEnough = 2f;
     private Animator anim;
 
+    public NavMeshAgent BadGuy;
+
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
-        //gives the square of where they can walk
-        xMin = 46;
-        zMin = -16;
-        xMax = 113;
-        zMax = -125;
+
+        xMin = -128;
+        zMin = 108; 
+        xMax = -32;
+        zMax = -90;
 
         newLocation();
     }
@@ -47,11 +50,9 @@ public class EnemyMovement : MonoBehaviour
     {
         //gets random cordinates to walk to
         xPos = Random.Range(xMin, xMax);
-        //yPos = transform.position.y;
         yPos = Terrain.activeTerrain.SampleHeight(new Vector3(xPos, 0f, zPos));
         zPos = Random.Range(zMin, zMax);
         BadGuy.SetDestination(new Vector3(xPos, yPos, zPos));
-        anim.Play("Run");
+        anim.Play("Idle");
     }
-
 }

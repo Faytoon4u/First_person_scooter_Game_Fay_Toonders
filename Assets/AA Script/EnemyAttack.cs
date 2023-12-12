@@ -11,30 +11,33 @@ public class EnemyAttack : MonoBehaviour
     public Material attackMaterial;
     private Renderer rend;
     public bool foundPlayer;
-
+    private Vector2 playerXZ;
+    private Vector2 enemyXZ;
 
     private void Awake()
     {
-       enemyMovement = GetComponent<EnemyMovement>();
+        enemyMovement = GetComponent<EnemyMovement>();
         rend = GetComponent<Renderer>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
-
-    // Update is called once per frame
     void Update()
     {
-        if(Vector3.Distance(transform.position, player.position) <= attackRange)
+        playerXZ = new Vector2(player.transform.position.x, player.transform.position.z);
+        enemyXZ = new Vector2(transform.position.x, transform.position.z);
+
+
+        if (Vector2.Distance(enemyXZ, playerXZ) <= attackRange)
         {
-            rend.sharedMaterial = attackMaterial;
             enemyMovement.BadGuy.SetDestination(player.position);
             foundPlayer = true;
+            enemyMovement.BadGuy.speed = 5f;
         }
-        else if(foundPlayer)
+        else if (foundPlayer)
         {
-            rend.sharedMaterial = defaultMaterial;
             enemyMovement.newLocation();
             foundPlayer = false;
+            enemyMovement.BadGuy.speed = 5f;
         }
     }
 }

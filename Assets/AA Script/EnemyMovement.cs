@@ -5,7 +5,6 @@ using UnityEngine.AI;
 
 public class RabbitMoving : MonoBehaviour
 
-
 {
     public NavMeshAgent Rabbit;
     //public float squareOfMovement = 20f;
@@ -15,16 +14,20 @@ public class RabbitMoving : MonoBehaviour
     private float zMin;
     private float zMax;
 
-    private float xPosition;
-    private float zPosition;
-    private float yPosition;
+    private float xPos;
+    private float yPos;
+    private float zPos;
 
-    public float CloseEnough;
-    private Animation anim;
-    
+    public float closeEnough = 2f;
+    private Animator anim;
+
+    public NavMeshAgent BadGuy;
+
     // Start is called before the first frame update
     void Start()
     {
+        anim = GetComponent<Animator>();
+
         xMin = 46;
         zMin = -16; 
         xMax = 113;
@@ -36,22 +39,23 @@ public class RabbitMoving : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Vector3.Distance(transform.position, new Vector3(xPosition, yPosition, zPosition)) <= CloseEnough) //makes it go to a new location if its close enough or at the other loc
+        //Debug.Log(Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(xPos, zPos)));
+        // if they get close enough to their location they get a new location to go to
+        if (Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(xPos, zPos)) <= closeEnough)
         {
             newLocation();
         }
-
     }
 
     public void newLocation()
-    { 
-        yPosition = transform.position.y;
-        xPosition = Random.Range(xMin, xMax);
-        zPosition = Random.Range(zMin, zMax);
-
-        Rabbit.SetDestination(new Vector3(xPosition, yPosition, zPosition));
-        Animator anim = Rabbit.GetComponent<Animator>();
-        anim.SetTrigger("Run");
+    {
+        //gets random cordinates to walk to
+        xPos = Random.Range(xMin, xMax);
+        //yPos = transform.position.y;
+        yPos = Terrain.activeTerrain.SampleHeight(new Vector3(xPos, 0f, zPos));
+        zPos = Random.Range(zMin, zMax);
+        BadGuy.SetDestination(new Vector3(xPos, yPos, zPos));
+        anim.Play("Run");
     }
 
 }
