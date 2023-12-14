@@ -5,7 +5,7 @@ using UnityEngine;
 public class ghostAttack : MonoBehaviour
 {
     private ghostMovement ghostMovement;
-    private Transform player;
+    public Transform player;
     public float attackRange = 10f;
     public Material defaultMaterial;
     public Material attackMaterial;
@@ -13,6 +13,8 @@ public class ghostAttack : MonoBehaviour
     public bool foundPlayer;
     private Vector2 playerXZ;
     private Vector2 enemyXZ;
+    private float attackTimer;
+    private float attackRate = 1f;
 
     public float killRange = 3f;
  
@@ -23,11 +25,12 @@ public class ghostAttack : MonoBehaviour
     {
         ghostMovement = GetComponent<ghostMovement>();
         rend = GetComponent<Renderer>();
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        
     }
 
     void Update()
     {
+        attackTimer += Time.deltaTime;
         playerXZ = new Vector2(player.transform.position.x, player.transform.position.z);
         enemyXZ = new Vector2(transform.position.x, transform.position.z);
 
@@ -44,30 +47,15 @@ public class ghostAttack : MonoBehaviour
             foundPlayer = false;
             ghostMovement.BadGuy.speed = 5f;
         }
-        // Attack the player when within killRange
-        //if (Vector2.Distance(enemyXZ, playerXZ) <= killRange)
-        //{
-        //    // Check if an attack has already been initiated
-        //    if (!hasAttacked)
-        //    {
-        //        anim.Play("attack");
-        //        //player.GetComponent<playerHealth>().takeDamage();
-        //        hasAttacked = true;
-        //    }
-        //}
-        //else
-        //{
+        if (Vector2.Distance(enemyXZ, playerXZ) <= killRange)
+        {
+            if(attackTimer > attackRate)
+            {
+                player.GetComponent<playerHealth>().takeDamage();
+                attackTimer = 0; // resets timer
+                //Debug.Log("Ya got you");
+            }
 
-        //    hasAttacked = false;
-        //}
+        }
     }
-
-    //private void OnTriggerEnter(Collider col)
-    //{
-    //    if (col.CompareTag("Player"))
-    //    {
-    //        player.GetComponent<playerHealth>().takeDamage();
-
-    //    }
-    //}
 }

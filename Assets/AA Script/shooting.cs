@@ -23,7 +23,8 @@ public class shooting : MonoBehaviour
                if (hit.collider.tag.Equals("npc"))
                {
                     hit.collider.GetComponent<Enemyhealth>().Die();
-               }
+                    hit.collider.GetComponent<Enemyhealth>().DieGhost();
+                }
             }
             
         }

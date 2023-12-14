@@ -24,6 +24,16 @@ public class Enemyhealth : MonoBehaviour
         // DontDestroyOnLoad("Dead");
         StartCoroutine(Dead());
     }
+
+    public void DieRabbit()
+    {
+        //Destroy(hit.collider.gameObject); // the GameObject gets destroyed here
+        Debug.Log("hit");
+        Animator anim = GetComponent<Animator>();
+        anim.Play("dissolve");
+        // DontDestroyOnLoad("Dead");
+        StartCoroutine(Dead());
+    }
     IEnumerator Dead()
     {
         yield return new WaitForSeconds(1.4f);

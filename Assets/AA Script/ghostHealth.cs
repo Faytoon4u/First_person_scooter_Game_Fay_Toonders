@@ -17,16 +17,16 @@ public class ghostHealth : MonoBehaviour
     }
     public void Die()
     {
-        //Destroy(hit.collider.gameObject); // the GameObject gets destroyed here
+        Destroy(hit.collider.gameObject); // the GameObject gets destroyed here
         Debug.Log("hit");
-        Animator anim = GetComponent<Animator>();
-        anim.SetTrigger("dissolve");
+        //Animator anim = GetComponent<Animator>();
+        //anim.SetTrigger("dissolve");
         // DontDestroyOnLoad("Dead");
-        StartCoroutine(Dead());
+        //StartCoroutine(Dead());
     }
-    IEnumerator Dead()
-    {
-        yield return new WaitForSeconds(1.4f);
-        Destroy(gameObject);
-    }
+    //IEnumerator Dead()
+    //{
+    //    yield return new WaitForSeconds(1.4f);
+    //    Destroy(gameObject);
+    //}
 }
