@@ -5,7 +5,8 @@ using UnityEngine;
 public class ghostAttack : MonoBehaviour
 {
     private ghostMovement ghostMovement;
-    public Transform player;
+    //public GameObject player;
+    private Transform player; 
     public float attackRange = 10f;
     public Material defaultMaterial;
     public Material attackMaterial;
@@ -15,9 +16,10 @@ public class ghostAttack : MonoBehaviour
     private Vector2 enemyXZ;
     private float attackTimer;
     private float attackRate = 1f;
-
+    [SerializeField] private int HP = 100;
     public float killRange = 3f;
- 
+    public Transform target;
+
     private Animator anim;
     private bool hasAttacked;
 
@@ -33,9 +35,10 @@ public class ghostAttack : MonoBehaviour
         attackTimer += Time.deltaTime;
         playerXZ = new Vector2(player.transform.position.x, player.transform.position.z);
         enemyXZ = new Vector2(transform.position.x, transform.position.z);
+        float dist = (Vector2.Distance(enemyXZ, playerXZ));
 
 
-        if (Vector2.Distance(enemyXZ, playerXZ) <= attackRange)
+        if (Vector3.Distance(target.position, transform.position) <= attackRange) 
         {
             ghostMovement.BadGuy.SetDestination(player.position);
             foundPlayer = true;
@@ -51,7 +54,7 @@ public class ghostAttack : MonoBehaviour
         {
             if(attackTimer > attackRate)
             {
-                player.GetComponent<playerHealth>().takeDamage();
+                player.GetComponent<playerHealth>().takeDamage();   
                 attackTimer = 0; // resets timer
                 //Debug.Log("Ya got you");
             }

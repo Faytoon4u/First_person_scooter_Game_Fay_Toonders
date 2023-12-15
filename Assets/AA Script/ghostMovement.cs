@@ -27,7 +27,7 @@ public class ghostMovement : MonoBehaviour
     {
         anim = GetComponent<Animator>();
 
-        xMin = -128;
+        xMin = -128;// sets the max and the min for the gosht to span
         zMin = 108; 
         xMax = -32;
         zMax = -90;
@@ -38,7 +38,7 @@ public class ghostMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(xPos, zPos)));
+       
         // if they get close enough to their location they get a new location to go to
         if (Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(xPos, zPos)) <= closeEnough)
         {

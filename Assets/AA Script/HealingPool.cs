@@ -7,7 +7,7 @@ public class HealingPool : MonoBehaviour
 {
     public Slider healthSlider;
     public int maxHealth = 40;
-    public int health;
+    public int health = 1;
     public float healAmount = 5;
     public float timeBetweenHits = 2f;
     // Start is called before the first frame update
@@ -18,8 +18,8 @@ public class HealingPool : MonoBehaviour
             Debug.Log("Slider not assigned");
         }
 
-        healthSlider.maxValue = maxHealth;
-        healthSlider.value = health;
+        //healthSlider.maxValue = maxHealth;
+        //healthSlider.value = health;
     }
     public void takeHealth()
     {

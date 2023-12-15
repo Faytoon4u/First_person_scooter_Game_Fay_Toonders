@@ -25,7 +25,7 @@ public class Enemyhealth : MonoBehaviour
         StartCoroutine(Dead());
     }
 
-    public void DieRabbit()
+    public void DieGhost()
     {
         //Destroy(hit.collider.gameObject); // the GameObject gets destroyed here
         Debug.Log("hit");
