@@ -6,7 +6,7 @@ public class ghostAttack : MonoBehaviour
 {
     private ghostMovement ghostMovement;
     //public GameObject player;
-    private Transform player; 
+    private GameObject player; 
     public float attackRange = 10f;
     public Material defaultMaterial;
     public Material attackMaterial;
@@ -27,7 +27,7 @@ public class ghostAttack : MonoBehaviour
     {
         ghostMovement = GetComponent<ghostMovement>();
         rend = GetComponent<Renderer>();
-        
+        player = GameObject.Find("player");
     }
 
     void Update()
@@ -38,9 +38,9 @@ public class ghostAttack : MonoBehaviour
         float dist = (Vector2.Distance(enemyXZ, playerXZ));
 
 
-        if (Vector3.Distance(target.position, transform.position) <= attackRange) 
+        if (Vector3.Distance(player.transform.position, transform.position) <= attackRange) 
         {
-            ghostMovement.BadGuy.SetDestination(player.position);
+            ghostMovement.BadGuy.SetDestination(player.transform.position);
             foundPlayer = true;
             ghostMovement.BadGuy.speed = 5f;
         }

@@ -25,18 +25,19 @@ public class Enemyhealth : MonoBehaviour
         StartCoroutine(Dead());
     }
 
-    public void DieGhost()
-    {
-        //Destroy(hit.collider.gameObject); // the GameObject gets destroyed here
-        Debug.Log("hit");
-        Animator anim = GetComponent<Animator>();
-        anim.Play("dissolve");
-        // DontDestroyOnLoad("Dead");
-        StartCoroutine(Dead());
-    }
+    //public void DieGhost()
+    //{
+    //    //Destroy(hit.collider.gameObject); // the GameObject gets destroyed here
+    //    Debug.Log("hit");
+    //    Animator anim = GetComponent<Animator>();
+    //    anim.Play("dissolve");
+    //    // DontDestroyOnLoad("Dead");
+    //    StartCoroutine(Dead());
+    //}
     IEnumerator Dead()
     {
         yield return new WaitForSeconds(1.4f);
         Destroy(gameObject);
+        GameManager.instance.RabbitKilled();
     }
 }
