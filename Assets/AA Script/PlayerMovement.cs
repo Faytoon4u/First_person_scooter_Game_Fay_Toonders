@@ -4,70 +4,64 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public float walkingSpeed = 10f;
+    public float runningSpeed = 17f;
+    public float jumpSpeed = 10f;
+    private float gravity = -9.81f;
+    private float verticalVelocity = 0f;
+
+    private CharacterController characterController;
     private float currentSpeed;
-    public float walkingSpeed = 10f; // makes the walking speed 
-    public float runningSpeed = 17f; // running speed
+    private Vector3 moveDirection;
 
-    private float gravity = -0.5f;
-    public float jumpSpeed = 20f;
-    private float baseLineGravity;
-
-    private float moveX;
-    private float moveZ;
-    private Vector3 move;
-
-    public CharacterController characterController;
-    private Rigidbody rb;
-
-    // Start is called before the first frame update
+    // Initialize the CharacterController and set default speed
     void Start()
     {
-        //rb = GetComponent<Rigidbody>();
+        characterController = GetComponent<CharacterController>();
         currentSpeed = walkingSpeed;
-        baseLineGravity = gravity;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        moveX = Input.GetAxis("Horizontal") * currentSpeed * Time.deltaTime;
-        moveZ = Input.GetAxis("Vertical") * currentSpeed * Time.deltaTime;
+        // Reset the movement direction each frame
+        moveDirection = Vector3.zero;
 
-        move = transform.right*moveX +
-               transform.up*gravity+
-               transform.forward* moveZ;
+        // Get input for horizontal (X) and vertical (Z) movement
+        float moveX = Input.GetAxis("Horizontal");
+        float moveZ = Input.GetAxis("Vertical");
 
+        // Set speed based on whether the player is holding down Shift
+        currentSpeed = Input.GetKey(KeyCode.LeftShift) ? runningSpeed : walkingSpeed;
 
-        characterController.Move(move);
-
-        // makes the runningspeed active by pressing shift 
-        if (Input.GetKey(KeyCode.LeftShift))  
+        // Move only when input exceeds a small threshold to avoid drift
+        if (Mathf.Abs(moveX) > 0.1f || Mathf.Abs(moveZ) > 0.1f)
         {
-            currentSpeed = runningSpeed;
+            moveDirection = (transform.right * moveX + transform.forward * moveZ).normalized * currentSpeed;
+        }
+
+        // Handle jumping and gravity
+        if (characterController.isGrounded)
+        {
+            if (Input.GetButtonDown("Jump"))
+            {
+                verticalVelocity = jumpSpeed; // Jump upwards when on the ground
+            }
+            else
+            {
+                verticalVelocity = 0f; // Reset vertical velocity when grounded
+            }
         }
         else
         {
-            currentSpeed = walkingSpeed;
+            // Apply gravity over time when not grounded
+            verticalVelocity += gravity * Time.deltaTime;
         }
 
-        // jumping bij pressing the spacebar
-        if (characterController.isGrounded == true && Input.GetButtonDown("Jump")) // if the character is on the ground 
-        {
-            gravity = baseLineGravity;
-            gravity *= -jumpSpeed;
+        // Combine horizontal and vertical movement
+        moveDirection.y = verticalVelocity;
 
-        }
-
-        if (gravity > baseLineGravity)
-        {
-            gravity -= 2 * Time.deltaTime;
-        }
-
-        //// jumpingggg
-        //if (characterController.isGrounded == true && Input.GetButtonDown("Jump!")) 
-        //{
-        //    rb.AddForce(Vector3.up, ForceMode.Impulse );
-        //}
-       
+        // Apply movement to the CharacterController
+        characterController.Move(moveDirection * Time.deltaTime);
     }
 }
+
